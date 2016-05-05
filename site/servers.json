@@ -5,5 +5,5 @@
     {"name": "crawl.xtahua.com", "url": "http://crawl.xtahua.com:8080/", "admins": ["Medar", "zkyp"], "latlongdecimal": [48.85341, 2.3488], "location": "Paris, France", "shortname": "CXC", "dgl-status": "http://crawl.xtahua.com/cgi-bin/dgl-status", "watchurl": "http://crawl.xtahua.com:8080/#watch-{name}"},
     {"name": "underhound.eu", "url": "http://underhound.eu:8080/", "admins": ["TZer0"], "latlongdecimal": [50.47788, 12.37129], "location": "Falkenstein, Germany", "shortname": "CUE", "dgl-status": "http://underhound.eu/cgi-bin/dgl-status", "watchurl": "http://underhound.eu:8080/#watch-{name}"},
     {"name": "webzook.net", "url": "http://webzook.net:8080/", "admins": ["hong"], "latlongdecimal": [37.566, 126.9784], "location": "Seoul, Korea", "shortname": "CWZ"},
-    {"name": "lazy-life.ddo.jp", "url": "http://lazy-life.ddo.jp:8080/", "admins": ["dplusplus"], "latlongdecimal": [35.6895, 139.69171], "location": "Tokyo, Japan", "shortname": "LLD"}
+    {"name": "crawl.jorgrun.rocks", "url": "https://crawl.jorgrun.rocks:8081/", "admins": ["ZiBuDo"], "latlongdecimal": [45.5088400, -73.5878100], "location": "Montreal, Canada", "shortname": "CJR"},
 ]
