@@ -167,24 +167,25 @@ function getFlavourLine(game) {
 }
 
 function handleServerList(servers) {
-    server_list = servers // ugly pt. 1
     $( "#play-list" ).empty();
     var arrayLength = servers.length;
     for (var i = 0; i < arrayLength; i++) {
         $( "#play-list" ).append("<li>" + servers[i]['location'] + ": " + "<a href=\"" + servers[i]['url'] + "\">" + servers[i]['name'] + "</a>" + "</li>");
     }
+    navigator.geolocation.getCurrentPosition(knownPosition, unknownPosition);
 }
 function failServerList() {
     $( "#play-list" ).empty();
     $( "#play-list-message" ).html("<li>Couldn't get server list :(</li>");
 }
 function knownPosition(position) {
-    servers.always(); // ugly pt. 2. We're passing the server list into this function via global variable
-    server = NearestPoint( position.coords.latitude, position.coords.longitude, server_list );
-    $( "#play-status" ).text("Playing on " + server["name"] + " located in " + server["location"] + "...");
-    setTimeout( function() {
-        window.location = server["url"];
+    $.getJSON( "servers.json" ).done( function (servers) {
+        server = NearestPoint( position.coords.latitude, position.coords.longitude, servers );
+        $( "#play-status" ).text("Playing on " + server["name"] + " located in " + server["location"] + "...");
+        setTimeout( function() {
+            window.location = server["url"];
         }, 2000);
+    });
 }
 function unknownPosition(error) {
     $( "#play-status" ).text("Can't get your location :(");
@@ -276,14 +277,13 @@ $(function() {
     }
     // play.html
     if ($( "#play-status" ).length) {
-        $.get( "servers.json" ).done(handleServerList).fail(failServerList);
         if (navigator.userAgent.match(/Android/i))
         {
             $( "#play-status" ).replaceWith('<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button><center><strong>Android Users!</strong><br>Playing DCSS online directly in the Web browser of your Android device doesn\'t work. We recommend Brian Newtz\'s DCSS Online WebTiles app.<br><a href="https://play.google.com/store/apps/details?id=com.newtzgames.dcssonline"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" /></a></center></div>');
         } else if (navigator.userAgent.match(/(iPad|iPhone|iPod)/)) {
             $( "#play-status" ).replaceWith('<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button><center><strong>iOS Users!</strong><br>Playing DCSS online directly in the Web browser of your Apple devices doesn\'t work. Sorry!</center></div>');
         } else {
-            navigator.geolocation.getCurrentPosition(knownPosition, unknownPosition);
+            $.get( "servers.json" ).done(handleServerList).fail(failServerList);
         }
     }
     // watch.html
