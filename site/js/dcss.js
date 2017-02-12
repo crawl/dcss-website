@@ -106,9 +106,22 @@ function setPlayerCaptions(data) {
                 )
             );
             // description
+            // Figure out the player's name line
+            // Ideal: "Foo the Axe Maniac"
+            if (c["latest_milestone"] !== null) {
+              player_title = " the " + c["latest_milestone"]["title"];
+            // Fallback (if Sequell HTTP API is down, latest_milestone is empty)
+            // "Foo the Troll Necromancer"
+            } else if (c['species'] !== "" && c['background'] !== "") {
+              player_title = " the " + c['species'] + " " + c['background'];
+            // Fallback (if the player is on character select screen)
+            // "Foo"
+            } else {
+              player_title = "";
+            }
             e.append(
                 $("<p/>").addClass("lead").css('margin', '0').append(
-                    $("<a/>").attr('href', c["watchurl"]).text(c["name"] + " the " + c["latest_milestone"]["title"])
+                    $("<a/>").attr('href', c["watchurl"]).text(c["name"] + player_title)
                 )
             );
             e.append($("<p/>").append($("<em/>").text(getFlavourLine(c))));
