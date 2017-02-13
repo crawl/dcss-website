@@ -33,20 +33,74 @@ function shuffleArray(o){ //v1.0
     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
+function addImageUrls(games) {
+  // Can we not hardcode these numbers?
+  // Note: image numbers are zero-indexed
+  // Number of branch-specific images available ('splashimgs/dcss-splash-$branch-$num.png')
+  available_images = { 'Dungeon': 3, 'Shoals': 4, 'Snake Pit': 2, 'Swamp': 3, 'Vaults': 4, };
+  // Number of generic fallback images available ('splashimgs/dcss-splash-$num.png')
+  fallback_images = 11;
+  // Count the number of games per branch
+  per_branch_games = {}
+  games.forEach(function(game, index) {
+    if (per_branch_games[game['branch']] === undefined) {
+      per_branch_games[game['branch']] = 1;
+    } else {
+      per_branch_games[game['branch']]++;
+    }
+  });
+
+  // Add branch-specific images
+  missing_images = 0
+  Object.keys(per_branch_games).forEach(function(current_branch, index) {
+    console.log(`current_branch: ${current_branch}`);
+    // How many images do we have for this branch?
+    max_images = available_images[current_branch];
+    if (max_images === undefined) { max_images = 0; }
+    // How many images do we need?
+    images_needed = per_branch_games[current_branch];
+    // Add as many branch-specific images as we can
+    images = []
+    for (var i = 0; i < Math.min(max_images, images_needed); i++) {
+      images.push(`splashimgs/dcss-splash-${current_branch}-${i}.png`);
+    }
+    images = shuffleArray(images);
+    games.forEach(function(game, index) {
+      if (images.length === 0) { return; }
+      if (game['branch'] !== current_branch) { return; }
+      console.log(`Adding image for ${game['username']} in ${game['branch']}`);
+      game['image_url'] = images.pop();
+    });
+    if (images_needed > max_images) {
+      missing_images += (images_needed - max_images);
+    }
+  });
+
+  // Now add the fallback images
+  images = []
+  for (var i = 0; i < fallback_images; i++) {
+    images.push(`splashimgs/dcss-splash-${i}.png`);
+  }
+  images = getRandomSubarray(images, missing_images);
+  images = shuffleArray(images);
+  games.forEach(function(game, index) {
+    if (images.length === 0) { return; }
+    if (game['image_url']) { return; }
+    console.log(`Adding fallback image for ${game['username']} in ${game['branch']}`);
+    game['image_url'] = images.pop();
+  });
+
+  // Convert per_branch_games back to flat array
+  return games;
+}
 function setPlayerCaptions(data) {
-        n = 6; // is there a nicer way to hardcode this?
-        numimgs = 11; // the number of images in splashimgs/ -- remember the images are 0-indexed!
-        // Generate the image candidates
-        image_candidates = [];
-        for (var i=0; i < numimgs; i++) {
-            image_candidates.push('splashimgs/dcss-splash-' + i + '.png');
-        }
+        n = 6; // number of games. Is there a nicer way to hardcode this?
         // Generate the spectator candidates
         // Preconditions:
         // We only want candidates with full info (some entries lack xl/race/background/location, so test for xl)
         // Check they have a species -- player might be on start screen
         // And we need a watch url
-        candidates = data.filter(function(element) { return "XL" in element && element["species"] != '' && "watchurl" in element});
+        candidates = data.filter(function(game) { return "xl" in game && "species" in game && "watchlink" in game});
         // There are a two competing goals with the candidate selection:
         // * random each refresh
         // * picks the best candidates
@@ -81,7 +135,7 @@ function setPlayerCaptions(data) {
             console.log("Warning: only found " + selected_candidates.length + " candidates.");
         }
         selected_candidates = shuffleArray(selected_candidates);
-        selected_image_candidates = shuffleArray(getRandomSubarray(image_candidates, selected_candidates.length));
+        selected_candidates = addImageUrls(selected_candidates);
 
         // Create & write our tiles
         $( "#live-games-tiles" ).empty();
@@ -100,28 +154,23 @@ function setPlayerCaptions(data) {
             // image
             e.append(
                 $("<div/>").css('text-align', 'center').css('overflow', 'hidden').css('height', '150px').append(
-                    $("<a/>").attr('href', c["watchurl"]).append(
-                        $("<img/>").attr('src', selected_image_candidates.pop()).css('object-fit', 'relative').css('object-position', 'center')//.css('height', '100px')
+                    $("<a/>").attr('href', c["watchlink"]).append(
+                        $("<img/>").attr('src', c['image_url']).css('object-fit', 'relative').css('object-position', 'center')//.css('height', '100px')
                         )
                 )
             );
             // description
             // Figure out the player's name line
             // Ideal: "Foo the Axe Maniac"
-            if (c["latest_milestone"] !== null) {
-              player_title = " the " + c["latest_milestone"]["title"];
-            // Fallback (if Sequell HTTP API is down, latest_milestone is empty)
-            // "Foo the Troll Necromancer"
-            } else if (c['species'] !== "" && c['background'] !== "") {
-              player_title = " the " + c['species'] + " " + c['background'];
-            // Fallback (if the player is on character select screen)
-            // "Foo"
+            if (c["title"]) {
+              player_title = c["username"] + " the " + c["title"];
+            // Fallback (if the player is on character select screen): "Foo"
             } else {
-              player_title = "";
+              player_title = c["username"];
             }
             e.append(
                 $("<p/>").addClass("lead").css('margin', '0').append(
-                    $("<a/>").attr('href', c["watchurl"]).text(c["name"] + player_title)
+                    $("<a/>").attr('href', c["watchlink"]).text(player_title)
                 )
             );
             e.append($("<p/>").append($("<em/>").text(getFlavourLine(c))));
@@ -143,40 +192,31 @@ function setPlayerCaptions(data) {
         $( "#live-games-link" ).text("See all " + data.length + " online games...");
 }
 function getFlavourLine(game) {
-    // This function is given a dgl-status game and returns an interesting string about it.
-    // We do this by generating every line and returning a random one.
-    // This is sort of inefficient -- is there a smarter way?
-    m = game["latest_milestone"];
+    // This function is given a game and returns an interesting string about it.
     candidates = [];
-    if (m['zigdeepest'] > 0) {
-        candidates.push("Reached level " + m['zigdeepest'] + " of a Ziggurat");
+    if ('milestone' in game) {
+      m = game['milestone'];
+      // Strip trailing period (not all milestones have this)
+      if (m.slice(-1) === '.') { m = m.slice(0, -1); }
+      // Normally we use "Just $milestone", but if the milestone starts with "was", use "Was just $milestone_without_was"
+      if (m.startsWith('was ')) {
+        m = 'Was just ' + m.slice(4);
+      } else {
+        m = "Just " + m;
+      }
+      candidates.push(m);
     }
-    if (m['zigscompleted'] > 0) {
-        candidates.push("Completed " + m['zigscompleted'] + " Ziggurats");
+    if ('xl' in game && 'species' in game && 'background' in game) {
+      candidates.push("Level " + game["xl"] + " " + game["species"] + " " + game["background"] + ("god" in game ? " of " + game["god"] : ""));
     }
-    if ((m['mhp'] * 2) <  m['hp']) {
-        candidates.push("HP: " + m['hp'] + '/' + m['mhp'] + ' MP: ' + m['mp'] + '/' + m['mmp']);
+    if ('place_human_readable' in game) {
+      // location field needs the first letter capitalised
+      candidates.push(game["place_human_readable"].charAt(0).toUpperCase() + game["place_human_readable"].slice(1));
     }
-    if (m['status'].split(",").length > 2) {
-        status = m['status'].split(",").join(", ")
-        candidates.push(status.charAt(0).toUpperCase() + status.slice(1));
-    }
-    if (m['nrune'] > 1) {
-        candidates.push("Collected " + m['nrune'] + " runes");
-    }
-    if (m['banisher']) {
-        candidates.push("Banished to the Abyss by " + m['banisher']);
-    }
-    if (candidates.length < 1 || Math.random() < 0.33) {
-        candidates.push("Just " + m['milestone'].slice(0, -1));
-        candidates.push("Level " + game["XL"] + " " + game["species"] + " " + game["background"] + (m["god"] ? " of " + m["god"] : ""));
-        // location field needs the first letter capitalised
-        candidates.push(game["location"].charAt(0).toUpperCase() + game["location"].slice(1));
-        if (m['sk']) {
-            candidates.push("Highest skill: " + m['sk']);
-        }
-    }
-    return getRandomSubarray(candidates, 1);
+    // If we couldn't find a candidate, return nothing
+    if (candidates.length === 0) { return ''; }
+    // Return a random string from the ones available
+    return candidates[Math.floor(Math.random()*candidates.length)];
 }
 
 function handleServerList(servers) {
@@ -268,7 +308,7 @@ function fillPlayerTable(games) {
              tr.append($("<td/>").text(e['idle'] + " seconds").attr('data-value', e['idle']));
         }
         tr.append($("<td/>").text(e['viewers']));
-        tr.append($("<td/>").append($("<a/>").text("Watch now.").attr('href', e['watchurl'])));
+        tr.append($("<td/>").append($("<a/>").text("Watch now.").attr('href', e['watchlink'])));
         $( "#livegames tbody" ).append(tr);
     }
     $.bootstrapSortable();
@@ -285,7 +325,7 @@ function networkError(error) {
 $(function() {
     // index.html
     if ($( "#live-games-tiles" ).length) {
-        $.get("dgl-status.json").done(setPlayerCaptions);
+        $.get("https://api.crawl.project357.org/live/games").done(setPlayerCaptions);
         $.get("//crawl.develz.org/wordpress/feed").done(updateFeed);
     }
     // play.html
