@@ -286,28 +286,18 @@ function fillPlayerTable(games) {
     for (var i = 0; i < games.length; i++) {
         e = games[i];
         tr = $( "<tr/>" );
-        tr.append($("<td/>").text(e['name']));
-        tr.append($("<td/>").text(e['version']));
-        tr.append($("<td/>").text(e['XL']));
+        tr.append($("<td/>").text(e['username']));
+        tr.append($("<td/>").text(e['game_id']));
+        tr.append($("<td/>").text(e['xl']));
         tr.append($("<td/>").text(e['species']));
         tr.append($("<td/>").text(e['background']));
-        if (e['branch']) {
-            if (e['branchlevel'] != 0) {
-                tr.append($("<td/>").text(e['branch'] + ":" + e['branchlevel']));
-            } else {
-                tr.append($("<td/>").text(e['branch']));
-            }
+        tr.append($("<td/>").text(e['place']));
+        if (e['idle']) {
+             tr.append($("<td/>").text(e['idle_time']).attr('data-value', e['idle_time']));
         } else {
-            tr.append($("<td/>"));
+             tr.append($("<td/>").attr('data-value', 0));
         }
-        if (e['idle'] >= 300) {
-             tr.append($("<td/>").text("Over 5 minutes").attr('data-value', e['idle']));
-        } else if (e['idle'] >= 60) {
-             tr.append($("<td/>").text(Math.round(e['idle'] / 60) + " minutes").attr('data-value', e['idle']));
-        } else {
-             tr.append($("<td/>").text(e['idle'] + " seconds").attr('data-value', e['idle']));
-        }
-        tr.append($("<td/>").text(e['viewers']));
+        tr.append($("<td/>").text(e['spectator_count']));
         tr.append($("<td/>").append($("<a/>").text("Watch now.").attr('href', e['watchlink'])));
         $( "#livegames tbody" ).append(tr);
     }
@@ -326,7 +316,7 @@ $(function() {
     // index.html
     if ($( "#live-games-tiles" ).length) {
         $.get("https://api.crawl.project357.org/live/games").done(setPlayerCaptions);
-        $.get("//crawl.develz.org/wordpress/feed").done(updateFeed);
+        $.get("https://crawl.develz.org/wordpress/feed").done(updateFeed);
     }
     // play.html
     if ($( "#play-status" ).length) {
@@ -341,6 +331,6 @@ $(function() {
     }
     // watch.html
     if ($( "#livegames" ).length) {
-        $.get('dgl-status.json').done(fillPlayerTable).fail(networkError);
+        $.get('https://api.crawl.project357.org/live/games').done(fillPlayerTable).fail(networkError);
     }
 });
