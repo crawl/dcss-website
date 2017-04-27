@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
         <title>Download - Dungeon Crawl Stone Soup</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="canonical" href="<%= baseurl %>/download.htm">
+        <link rel="canonical" href="http://crawl.develz.org/download.htm">
 
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -12,35 +13,33 @@
     </head>
     <body>
         <div class="container">
-            <div class="page-header">
-                <center>
-                    <a href="./"><img class="img-responsive" src="logo.png" title="Dungeon Crawl Stone Soup" width="790px" height="152px"></a>
-                </center>
+            <div class="page-header text-center">
+                    <a href="./"><img class="img-responsive" src="logo.png" alt="Dungeon Crawl Stone Soup" title="Dungeon Crawl Stone Soup" width="790" height="152"></a>
             </div>
 
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 col-sm-12">
 
                     <h2 class="text-center">Download</h2>
-                    <h5 class="text-center">Latest Stable Version: <strong>0.19.5</strong>
+                    <h5 class="text-center">Latest Stable Version: <strong>0.19.5</strong></h5>
                     <table class="table" style="text-align: center;">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>
-                                    <h3 class="text-center">Graphical Tiles</h3>
-                                    <img src="tileimgs/tiles.png" class="center-block">
+                                    <p class="h3 text-center">Graphical Tiles</p>
+                                    <img src="tileimgs/tiles.png" alt="Tiles" class="center-block">
                                 </th>
                                 <th>
-                                    <h3 class="text-center">Console</h3>
-                                    <img src="tileimgs/console.png" class="center-block">
+                                    <p class="h3 text-center">Console</p>
+                                    <img src="tileimgs/console.png" alt="Console" class="center-block">
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">Windows Installer</th>
-                                <td colspan=2>
+                                <td>
                                   <ul class="list-unstyled">
                                     <li><a href="release/stone_soup-0.19.5-win32-installer.exe">Download Tiles+Console</a></li>
                                   </ul>
@@ -70,14 +69,14 @@
                                   <ul class="list-unstyled">
                                     <li>Online WebTiles App (by Brian Newtz)</li>
                                     <li><a href="https://play.google.com/store/apps/details?id=com.newtzgames.dcssonline">
-                                      <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="210px" height="80px">
+                                      <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="210" height="80">
                                       </a>
                                     </li>
                                   </ul>
                                 </td>
                                 <td>
                                   <a href="https://play.google.com/store/apps/details?id=com.crawlmb">
-                                    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="210px" height="80px">
+                                    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="210" height="80">
                                   </a>
                                 </td>
                             </tr>
@@ -98,17 +97,15 @@
                             <tr>
                               <th scope="row">Past Releases</th>
                                 <td colspan="2"><a href="release/">Releases Folder</a></td>
-                              </td>
                             </tr>
                             <tr>
                               <th scope="row">Development Builds</th>
                                 <td colspan="2"><a href="http://crawl.develz.org/trunk/">Trunk Builds Page</a></td>
-                              </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <a name="linux"></a>
+                    <a id="linux"></a>
                     <h3>Linux</h3>
                         <p>
                             A version of DCSS may be available in your
@@ -146,7 +143,7 @@ sudo wget http://download.opensuse.org/repositories/home:nazar554/Fedora_25/home
 sudo dnf install crawl-sdl crawl-data
 # install console version
 sudo dnf install crawl-console crawl-data</pre>
-                        <a name="source"></a>
+                        <a id="source"></a>
                         <h3>Source Code</h3>
                         <p>
                             To compile DCSS yourself, you can clone
