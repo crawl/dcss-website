@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
         <title>Dungeon Crawl Stone Soup</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="canonical" href="<%= baseurl %>">
+        <link rel="canonical" href="http://crawl.develz.org">
 
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -13,25 +14,22 @@
     </head>
     <body>
         <div class="container">
-            <div class="page-header">
-                <center>
-                    <a href="./"><img class="img-responsive" src="logo.png" title="Dungeon Crawl Stone Soup" width="790px" height="152px"></a>
-                </center>
+            <div class="page-header text-center">
+                    <a href="./"><img class="img-responsive" src="logo.png" alt="Dungeon Crawl Stone Soup" title="Dungeon Crawl Stone Soup" width="790" height="152"></a>
             </div>
 
             <!-- mention free/open-source? -->
             <p class="lead text-center">A roguelike adventure through dungeons filled with dangerous monsters in a quest to find the mystifyingly fabulous Orb of Zot.</p>
-            <center> <!-- XXX: HACKY!!!!! -->
-                <a href="play.htm" class="btn btn-lg btn-success" style="padding: 20px 32px; font-size: 24px;">Play Online Now!</a>
+                <a href="play.htm" class="btn btn-lg btn-success text-center" style="padding: 20px 32px; font-size: 24px;">Play Online Now!</a>
                 <br><br>
                 <p class="text-center"><a href="download.htm">Or download for Windows, OS X, Android or Linux.</a></p>
                 <!-- Start Survey Content -->
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#surveyModal">
+                <button type="button" class="btn btn-primary btn-lg text-center" data-toggle="modal" data-target="#surveyModal">
                   Take The Player Survey!
                 </button>
+
                 <!-- End Survey Content -->
-            </center>
                 <!-- Start Survey Content -->
                 <!-- Modal -->
                 <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -44,11 +42,11 @@
                       <div class="modal-body">
                         <p>In celebration of the 19th Stone Soup version, the dev team would like to conduct a user survey! The last survey was 6 years ago (version 0.10), so it’s time to get an updated snapshot of the DCSS community.</p>
                         <p>The survey should take about 5 minutes to complete and requires you to sign into Google (we don’t see your account name or details). Please clink the link below for your language to begin:</p>
-                        <center>
-                          <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScJuQWMNx0v0yFMHyE4kx9uiTp3mpentPz6LdcAz4KrzA7ciA/viewform">English Language</a></p>
-                          <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSffi7GsmWKhmoUYItDkZjH4jvYEj7qAJua07wkZFm3Blz7cVw/viewform">日本語</a></p>
-                          <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScoDbe-hOj9Pe8WHbd8hUIZs14r5tLk2aviic5xnnaCjFzj9w/viewform">한국어</a></p>
-                        </center>
+
+                          <p class="text-center"><a href="https://docs.google.com/forms/d/e/1FAIpQLScJuQWMNx0v0yFMHyE4kx9uiTp3mpentPz6LdcAz4KrzA7ciA/viewform">English Language</a></p>
+                          <p class="text-center"><a href="https://docs.google.com/forms/d/e/1FAIpQLSffi7GsmWKhmoUYItDkZjH4jvYEj7qAJua07wkZFm3Blz7cVw/viewform">日本語</a></p>
+                          <p class="text-center"><a href="https://docs.google.com/forms/d/e/1FAIpQLScoDbe-hOj9Pe8WHbd8hUIZs14r5tLk2aviic5xnnaCjFzj9w/viewform">한국어</a></p>
+
                         <p>The survey will be open for about 6 months, until the next release. Don’t worry if your answers are likely to change over this period: after all, the survey is supposed to reflect a slice in time.</p>
                         <p><b>Why are we doing this?</b></p>
                         <p>Our main reason to conduct a survey is because it’s fun. We’d love to get current information about, for example, the overall win rate, what makes players give up on Crawl, and how and where they discuss the game. More than being just interesting numbers, this information can help shape future development.</p>
@@ -80,7 +78,7 @@
                     LearnDB lookup)</a>
                 </li>
                 <li><a href="http://crawl.chaosforge.org/">Community Wiki</a>: Game information organized into articles, with a focus on describing the <a href="http://crawl.chaosforge.org/Current_release">stable release</a></li>
-                <li><a href="https://crawl.develz.org/tavern/">Forum</a>: Debate strategy and propose changes on our forums</a></li>
+                <li><a href="https://crawl.develz.org/tavern/">Forum</a>: Debate strategy and propose changes on our forums</li>
                 <li><a href="http://webchat.freenode.net/?channels=%23%23crawl">IRC</a>: ##crawl on Freenode is filled with helpful souls offering real-time advice</li>
                 <li><a href="https://crawl.develz.org/mantis/">Bug Reports</a>: Found a problem? Let us know!</li>
             </ul>
