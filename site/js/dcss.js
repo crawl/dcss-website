@@ -106,9 +106,10 @@ function setPlayerCaptions(data) {
                 )
             );
             // description
+	    let description = c["name"] + (c["latest_milestone"] ? (" the " + c["latest_milestone"]["title"]) : "");
             e.append(
                 $("<p/>").addClass("lead").css('margin', '0').append(
-                    $("<a/>").attr('href', c["watchurl"]).text(c["name"] + " the " + c["latest_milestone"]["title"])
+                    $("<a/>").attr('href', c["watchurl"]).text(description)
                 )
             );
             e.append($("<p/>").append($("<em/>").text(getFlavourLine(c))));
