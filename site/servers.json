@@ -6,5 +6,5 @@
     {"name": "underhound.eu", "url": "http://underhound.eu:8080/", "admins": ["TZer0"], "latlongdecimal": [50.47788, 12.37129], "location": "Falkenstein, Germany", "shortname": "CUE", "dgl-status": "http://underhound.eu/cgi-bin/dgl-status", "watchurl": "http://underhound.eu:8080/#watch-{name}"},
     {"name": "webzook.net", "url": "http://webzook.net:8080/", "admins": ["hong"], "latlongdecimal": [37.566, 126.9784], "location": "Seoul, Korea", "shortname": "CWZ"},
     {"name": "lazy-life.ddo.jp", "url": "http://lazy-life.ddo.jp:8080/", "admins": ["dplusplus"], "latlongdecimal": [35.6895, 139.69171], "location": "Tokyo, Japan", "shortname": "LLD"},
-    {"name": "crawl.jorgrun.rocks", "url": "https://crawl.jorgrun.rocks:8081/", "admins": ["ZiBuDo"], "latlongdecimal": [45.5088400, -73.5878100], "location": "Montreal, Canada", "shortname": "CJR"}
+    {"name": "crawl.kelbi.org", "url": "https://crawl.kelbi.org:8081/", "admins": ["floraline"], "latlongdecimal": [40.730610, -73.935242], "location": "New York, USA", "shortname": "CKO"}
 ]
