@@ -146,6 +146,19 @@ sudo wget http://download.opensuse.org/repositories/home:nazar554/Fedora_25/home
 sudo dnf install crawl-sdl crawl-data
 # install console version
 sudo dnf install crawl-console crawl-data</pre>
+                        <h4>Gentoo</h4>
+                        <p>
+			  The stone-soup package is available in the
+			  official Gentoo repository.  It is possible
+			  to install multiple versions side-by-side
+			  beginning recently.  By default both tiles
+			  and ncurses implementations are installed.
+                        </p>
+                        <pre>sudo emerge -av stone-soup
+
+# Install a previous version
+sudo emerge -av stone-soup:0.25
+</pre>
                         <a name="source"></a>
                         <h3>Source Code</h3>
                         <p>
