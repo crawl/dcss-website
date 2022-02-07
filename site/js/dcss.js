@@ -275,14 +275,7 @@ $(function() {
     }
     // play.html
     if ($( "#play-status" ).length) {
-        if (navigator.userAgent.match(/Android/i))
-        {
-            $( "#play-status" ).replaceWith('<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button><center><strong>Android Users!</strong><br>Playing DCSS online directly in the Web browser of your Android device doesn\'t work. We recommend Brian Newtz\'s DCSS Online WebTiles app.<br><a href="https://play.google.com/store/apps/details?id=com.newtzgames.dcssonline"><img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" /></a></center></div>');
-        } else if (navigator.userAgent.match(/(iPad|iPhone|iPod)/)) {
-            $( "#play-status" ).replaceWith('<div class="alert alert-warning alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button><center><strong>iOS Users!</strong><br>Playing DCSS online directly in the Web browser of your Apple devices doesn\'t work. Sorry!</center></div>');
-        } else {
-            $.get( "servers.json" ).done(handleServerList).fail(failServerList);
-        }
+        $.get( "servers.json" ).done(handleServerList).fail(failServerList);
     }
     // watch.html
     if ($( "#livegames" ).length) {
