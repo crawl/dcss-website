@@ -165,9 +165,9 @@
                         DCSS packages are available for i386 and amd64 architectures. Follow these instructions:
                     </p>
 <pre># Install the source repository
-echo 'deb https://crawl.develz.org/debian crawl 0.33' | sudo tee -a /etc/apt/sources.list
+echo 'deb [signed-by=/usr/share/keyrings/crawl.gpg] https://crawl.develz.org/debian crawl 0.33' | sudo tee /etc/apt/sources.list.d/crawl.list
 # Install the DCSS signing key
-wget https://crawl.develz.org/debian/pubkey -O - | sudo apt-key add -
+wget -q https://crawl.develz.org/debian/pubkey -O - | gpg --dearmor | sudo tee /usr/share/keyrings/crawl.gpg > /dev/null
 # update your package list
 sudo apt-get update
 # install console version
