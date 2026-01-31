@@ -1,0 +1,5 @@
+# Flathub Verification Tokens
+# https://docs.flathub.org/docs/for-app-authors/verification
+
+# org.develz.Crawl
+70075a2e-8231-4ef5-857d-660bbe4400e6
