@@ -9,4 +9,5 @@
     {"name": "crawl.nemelex.cards", "url": "https://crawl.nemelex.cards/", "admins": ["ASCIIPhilia"], "latlongdecimal": [37.5289, 127.1728], "location": "Gyeonggi, Korea", "shortname": "CNC", "watchurl": "https://crawl.nemelex.cards/#watch-{name}"},
     {"name": "lazy-life.ddo.jp", "url": "http://lazy-life.ddo.jp:8080/", "admins": ["dplusplus"], "latlongdecimal": [35.6895, 139.69171], "location": "Tokyo, Japan", "shortname": "LLD", "watchurl": "http://lazy-life.ddo.jp:8080/#watch-{name}"},
     {"name": "crawl.project357.org", "url": "https://crawl.project357.org/", "admins": ["mcursa"], "latlongdecimal": [-33.86785, 151.20732], "location": "Sydney, Australia", "shortname": "CPO", "dgl-status": "https://crawl.project357.org/dgl-status", "watchurl": "https://crawl.project357.org/watch/{name}"}
+    {"name": "cco.crawlcosplay.org", "url": "http://cco.crawlcosplay.org/", "admins": ["Quinn"], "latlongdecimal": [43.6510, -79.3470], "location": "Toronto, Canada", "shortname": "CCO", "watchurl": "http://cco.crawlcosplay.org/#watch-{name}"},
 ]
